@@ -1,0 +1,8 @@
+num_epochs: 100
+num_exps: 10
+num_blocks: 3
+trials_per_block: 80
+num_odors: 2
+input_dim: 2
+output_dim: 1
+seed: 0

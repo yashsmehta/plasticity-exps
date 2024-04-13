@@ -1,0 +1,100 @@
+[I 2023-11-20 10:29:33.559 ServerApp] jupyterlab | extension was successfully linked.
+[W 2023-11-20 10:29:33.572 NotebookApp] 'allow_password_change' has moved from NotebookApp to ServerApp. This config will be passed to ServerApp. Be sure to update your config before our next release.
+[W 2023-11-20 10:29:33.572 NotebookApp] 'password' has moved from NotebookApp to ServerApp. This config will be passed to ServerApp. Be sure to update your config before our next release.
+[I 2023-11-20 10:29:34.878 ServerApp] nbclassic | extension was successfully linked.
+[W 2023-11-20 10:29:35.017 ServerApp] All authentication is disabled.  Anyone who can connect to this server will be able to run code.
+[I 2023-11-20 10:29:35.046 LabApp] JupyterLab extension loaded from /groups/funke/home/mehtay/anaconda3/lib/python3.9/site-packages/jupyterlab
+[I 2023-11-20 10:29:35.046 LabApp] JupyterLab application directory is /groups/funke/home/mehtay/anaconda3/share/jupyter/lab
+[I 2023-11-20 10:29:35.051 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2023-11-20 10:29:35.079 ServerApp] nbclassic | extension was successfully loaded.
+[I 2023-11-20 10:29:35.079 ServerApp] Serving notebooks from local directory: /groups/funke/home/mehtay/research/plasticity/plotters/paper_figs
+[I 2023-11-20 10:29:35.079 ServerApp] Jupyter Server 1.4.1 is running at:
+[I 2023-11-20 10:29:35.079 ServerApp] http://h09u05.int.janelia.org:8888/lab
+[I 2023-11-20 10:29:35.079 ServerApp]  or http://127.0.0.1:8888/lab
+[I 2023-11-20 10:29:35.079 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+Unable to connect to VS Code server: Error in request.
+Error: connect ENOENT /run/user/63832/vscode-ipc-b1328042-4b15-44ec-8878-eecf2cbf6b98.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1494:16) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'connect',
+  address: '/run/user/63832/vscode-ipc-b1328042-4b15-44ec-8878-eecf2cbf6b98.sock'
+}
+[I 2023-11-20 10:29:50.800 ServerApp] Malformed HTTP message from 10.60.0.216: Malformed HTTP version in HTTP Request-Line: ''
+[W 2023-11-20 10:29:59.574 LabApp] Could not determine jupyterlab build status without nodejs
+[W 2023-11-20 10:30:02.910 ServerApp] 404 GET /api/contents/paper_figs/table1.ipynb?content=0&1700494202809 (10.60.0.216): No such file or directory: paper_figs/table1.ipynb
+[W 2023-11-20 10:30:02.910 ServerApp] No such file or directory: paper_figs/table1.ipynb
+[W 2023-11-20 10:30:02.910 ServerApp] 404 GET /api/contents/paper_figs/table1.ipynb?content=0&1700494202809 (10.60.0.216) 2.48ms referer=http://h09u05.int.janelia.org:8888/lab
+[W 2023-11-20 10:30:02.911 ServerApp] 404 GET /api/contents/paper_figs/Fig2.ipynb?content=0&1700494202808 (10.60.0.216): No such file or directory: paper_figs/Fig2.ipynb
+[W 2023-11-20 10:30:02.911 ServerApp] No such file or directory: paper_figs/Fig2.ipynb
+[W 2023-11-20 10:30:02.911 ServerApp] 404 GET /api/contents/paper_figs/Fig2.ipynb?content=0&1700494202808 (10.60.0.216) 2.24ms referer=http://h09u05.int.janelia.org:8888/lab
+[W 2023-11-20 10:30:03.517 ServerApp] 404 GET /api/contents/paper_figs?1700494203422 (10.60.0.216): No such file or directory: paper_figs
+[W 2023-11-20 10:30:03.517 ServerApp] No such file or directory: paper_figs
+[W 2023-11-20 10:30:03.517 ServerApp] 404 GET /api/contents/paper_figs?1700494203422 (10.60.0.216) 1.07ms referer=http://h09u05.int.janelia.org:8888/lab
+[I 2023-11-20 10:30:07.854 ServerApp] Creating new notebook in 
+[I 2023-11-20 10:30:08.230 ServerApp] Kernel started: ed61b408-d5d9-44ee-8ead-e1f382ae8d97
+[W 2023-11-20 10:30:13.264 ServerApp] Notebook Fig5.exp data.ipynb is not trusted
+[I 2023-11-20 10:30:13.712 ServerApp] Kernel started: 9ee0ff7b-4ddc-4890-b75c-2a8c6470fe1e
+[I 2023-11-20 10:32:13.622 ServerApp] Saving file at /Fig5.exp data.ipynb
+[W 2023-11-20 10:32:13.622 ServerApp] Notebook Fig5.exp data.ipynb is not trusted
+[I 2023-11-20 10:34:13.945 ServerApp] Saving file at /Fig5.exp data.ipynb
+[W 2023-11-20 10:34:13.946 ServerApp] Notebook Fig5.exp data.ipynb is not trusted
+[I 2023-11-20 10:36:14.115 ServerApp] Saving file at /Fig5.exp data.ipynb
+[W 2023-11-20 10:36:14.115 ServerApp] Notebook Fig5.exp data.ipynb is not trusted
+[I 2023-11-20 10:48:50.057 ServerApp] Saving file at /Fig5.exp data.ipynb
+[W 2023-11-20 10:48:50.058 ServerApp] Notebook Fig5.exp data.ipynb is not trusted
+[I 2023-11-20 10:50:51.049 ServerApp] Saving file at /Fig5.exp data.ipynb
+[W 2023-11-20 10:50:51.049 ServerApp] Notebook Fig5.exp data.ipynb is not trusted
+[I 2023-11-20 11:03:50.053 ServerApp] Saving file at /Fig5.exp data.ipynb
+[W 2023-11-20 11:03:50.053 ServerApp] Notebook Fig5.exp data.ipynb is not trusted
+[I 2023-11-20 11:05:50.248 ServerApp] Saving file at /Fig5.exp data.ipynb
+[W 2023-11-20 11:05:50.248 ServerApp] Notebook Fig5.exp data.ipynb is not trusted
+[W 2023-11-20 11:28:42.247 ServerApp] WebSocket ping timeout after 119916 ms.
+[W 2023-11-20 11:28:44.959 ServerApp] WebSocket ping timeout after 119968 ms.
+[I 2023-11-20 11:28:47.249 ServerApp] Starting buffering for ed61b408-d5d9-44ee-8ead-e1f382ae8d97:8de91362-4d30-49bf-b4fd-cb16fee08a66
+[I 2023-11-20 11:28:49.960 ServerApp] Starting buffering for 9ee0ff7b-4ddc-4890-b75c-2a8c6470fe1e:db3e7bac-db58-4319-abc3-df392769fca4
+[W 2023-11-28 17:04:32.192 ServerApp] 403 GET /metrics (127.0.0.1) 24.62ms referer=None
+[W 2023-11-29 09:26:39.817 ServerApp] 403 GET /metrics (127.0.0.1) 10.02ms referer=None
+[W 2023-12-07 03:38:33.424 ServerApp] 403 GET /metrics (127.0.0.1) 14.32ms referer=None
+[I 2023-12-12 11:38:48.337 ServerApp] Interrupted...
+[I 2023-12-12 11:38:48.351 ServerApp] Shutting down 2 kernels
+[I 2023-12-12 11:38:48.352 ServerApp] Kernel shutdown: ed61b408-d5d9-44ee-8ead-e1f382ae8d97
+[I 2023-12-12 11:38:48.353 ServerApp] Kernel shutdown: 9ee0ff7b-4ddc-4890-b75c-2a8c6470fe1e
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@h09u05>
+Subject: Job 133420099: <Jupyter> in cluster <Janelia> Exited
+
+Job <Jupyter> was submitted from host <vm7134> by user <mehtay> in cluster <Janelia> at Mon Nov 20 10:29:27 2023
+Job was executed on host(s) <4*h09u05>, in queue <gpu_tesla>, as user <mehtay> in cluster <Janelia> at Mon Nov 20 10:29:27 2023
+</groups/funke/home/mehtay> was used as the home directory.
+</groups/funke/home/mehtay/research/plasticity/plotters/paper_figs> was used as the working directory.
+Started at Mon Nov 20 10:29:27 2023
+Terminated at Tue Dec 12 11:38:48 2023
+Results reported at Tue Dec 12 11:38:48 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+jupyter lab --ip 0.0.0.0 
+------------------------------------------------------------
+
+TERM_ADMIN: job killed by root or an administrator.
+Exited with signal termination: 14.
+
+Resource usage summary:
+
+    CPU time :                                   5290.72 sec.
+    Max Memory :                                 291 MB
+    Average Memory :                             290.81 MB
+    Total Requested Memory :                     122880.00 MB
+    Delta Memory :                               122589.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                38
+    Run time :                                   1904958 sec.
+    Turnaround time :                            1904961 sec.
+
+The output (if any) is above this job summary.
+
