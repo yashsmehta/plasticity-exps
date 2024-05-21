@@ -5,50 +5,91 @@ import evaluate
 
 
 if __name__ == "__main__":
+    """
+    Main entry point for running the training or evaluation process.
+
+    This script initializes the configuration for the process, sets up the necessary parameters,
+    and starts the training or evaluation using the specified trainer and evaluator.
+
+    Configuration Parameters:
+    - exp_type (str): Type of experiment ("train" or "eval").
+    - num_train (int): Number of trajectories in the training set, each simulated with different initial weights.
+    - num_eval (int): Number of evaluation trajectories.
+    - num_epochs (int): Number of training epochs.
+    - trials_per_block (int): Total length of trajectory is number of blocks * trials per block.
+    - num_blocks (int): Each block can have different reward probabilities/ratios for the odors.
+    - device (str): Device to run the training on (e.g., "cpu").
+    - reward_ratios (tuple): A:B reward probabilities corresponding to each block.
+    - log_expdata (bool): Flag to save the training data.
+    - log_mlp_plasticity (bool): Flag to save the trajectory of the plasticity MLP weights.
+    - log_interval (int): Log training data every x epochs.
+    - use_experimental_data (bool): Use simulated or experimental data.
+    - expid (int): Experiment ID saved for parallel runs on cluster.
+    - fit_data (str): Type of data to fit on ("neural" or "behavior").
+    - neural_recording_sparsity (float): Sparsity of neural recordings (1.0 means all neurons are recorded).
+    - measurement_noise_scale (float): Scale of Gaussian noise added to neural recordings.
+    - layer_sizes (str): Network layer sizes [input_dim, hidden_dim, output_dim].
+    - input_firing_mean (float): Mean value of firing input neuron.
+    - input_variance (float): Variance of input encoding of stimulus.
+    - l1_regularization (float): L1 regularizer on the Taylor series parameters to enforce sparse solutions.
+    - generation_coeff_init (str): Initialization string for the generation coefficients.
+    - generation_model (str): Model type for generation ("volterra" or "mlp").
+    - plasticity_coeff_init (str): Initialization method for the plasticity coefficients ("random" or "zeros").
+    - plasticity_model (str): Model type for plasticity ("volterra" or "mlp").
+    - meta_mlp_layer_sizes (list): Layer sizes for the MLP if the functional family is MLP.
+    - moving_avg_window (int): Window size for calculating expected reward, E[R].
+    - data_dir (str): Directory to load experimental data.
+    - log_dir (str): Directory to save experimental data.
+    - trainable_coeffs (int): Number of trainable coefficients.
+    - coeff_mask (list): Mask for the coefficients.
+    - exp_name (str): Name under which logs are stored.
+    - reward_term (str): Reward term to use ("reward" or "expected_reward").
+    """
+
     coeff_mask = np.zeros((3, 3, 3, 3))
     coeff_mask[:, :, :, :] = 1
 
     cfg_dict = {
         "exp_type": "train",
-        "num_train": 18,  # number of trajectories in the training set. each simulated one with different initial weights.
+        "num_train": 18,
         "num_eval": 7,
         "num_epochs": 350,
-        "trials_per_block": 80,  # total length of trajectory is number of blocks * trails per block
-        "num_blocks": 3,  # each block can have different reward probabilities/ratios for the odors
+        "trials_per_block": 80,
+        "num_blocks": 3,
         "device": "cpu",
         "reward_ratios": (
             (0.2, 0.8),
             (0.9, 0.1),
             (0.2, 0.8),
-        ),  # A:B reward probabilities for corresponding to each block
-        "log_expdata": False,  # flag to save the training data
-        "log_mlp_plasticity": False,  # flag to save the trajectory of the plasticity mlp weights
-        "log_interval": 25,  # log training data every x epochs
-        "use_experimental_data": False,  # use simulated or experimental data
-        "expid": 1,  # expid saved for parallel runs on cluster
-        "fit_data": "behavior",  # code searches for words: "neural", "behavior", corresponding to fitting on neural activity recordings or binary behavioral choices
-        "neural_recording_sparsity": 1.0,  # sparsity of 1. means all neurons are recorded
-        "measurement_noise_scale": 0.0,  # scale of gaussian noise added to neural recordings would be measurement_noise * firing_rate
-        "layer_sizes": "[2, 10, 1]",  # network [input_dim, hidden_dim, output_dim], only 2, 3 layer network supported, since we're modeling plasticity in a single layer
-        "input_firing_mean": 0.75,  # stimulus is encoded as firing neurons. mean value of firing input neuron
-        "input_variance": 0.05,  # variance of input encoding of stimulus
-        "l1_regularization": 1e-2,  # L1 regularizer on the taylor series params to enforce sparse solutions
-        "generation_coeff_init": "X1Y0R1W0",  # simulated data underlying rule, integers are the corresponding powers, so X1R1W0 would be XR.
-        "generation_model": "volterra",  # "volterra" (this just means taylor, it's called volterra in the code, to be consistent with prior literature) or "mlp"
-        "plasticity_coeff_init": "random",  # initializations for the parameters of the plasticity rule, "random" or "zeros"
-        "plasticity_model": "volterra",  # "volterra" or "mlp (what is the functional family of the plasticity model)
+        ),
+        "log_expdata": False,
+        "log_mlp_plasticity": False,
+        "log_interval": 25,
+        "use_experimental_data": False,
+        "expid": 1,
+        "fit_data": "behavior",
+        "neural_recording_sparsity": 1.0,
+        "measurement_noise_scale": 0.0,
+        "layer_sizes": "[2, 10, 1]",
+        "input_firing_mean": 0.75,
+        "input_variance": 0.05,
+        "l1_regularization": 1e-2,
+        "generation_coeff_init": "X1Y0W0R1",
+        "generation_model": "volterra",
+        "plasticity_coeff_init": "random",
+        "plasticity_model": "volterra",
         "meta_mlp_layer_sizes": [
             4,
             10,
             1,
-        ],  # [4, hidden_dim, 1] (if functional family is MLP, then define parameters)
-        "moving_avg_window": 10,  # define the window for calculating expected reward, E[R]
-        "data_dir": "../data/",  # directory to load experimental data
-        "log_dir": "logs/",  # directory to save experimental data
+        ],
+        "moving_avg_window": 10,
+        "data_dir": "../data/",
+        "log_dir": "logs/",
         "trainable_coeffs": int(np.sum(coeff_mask)),
         "coeff_mask": coeff_mask.tolist(),
-        "exp_name": "trial",  # logs are stored under a directory created under this name
-        "reward_term": "expected_reward",  # reward or expected_reward. Note, this is a dummy config, one needs to manually change the reward_term variable, in model.update_params()
+        "exp_name": "trial",
+        "reward_term": "expected_reward",
     }
 
     cfg = OmegaConf.create(cfg_dict)
@@ -60,4 +101,3 @@ if __name__ == "__main__":
         trainer.train(cfg)
     if "eval" in cfg.exp_type:
         evaluate.simulate_model(cfg)
-
