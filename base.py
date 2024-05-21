@@ -9,9 +9,10 @@ if __name__ == "__main__":
     coeff_mask[:, :, :, :] = 1
 
     cfg_dict = {
+        "exp_type": "train",
         "num_train": 18,  # number of trajectories in the training set. each simulated one with different initial weights.
-        "num_eval": 6,
-        "num_epochs": 100,
+        "num_eval": 7,
+        "num_epochs": 350,
         "trials_per_block": 80,  # total length of trajectory is number of blocks * trails per block
         "num_blocks": 3,  # each block can have different reward probabilities/ratios for the odors
         "device": "cpu",
@@ -22,16 +23,16 @@ if __name__ == "__main__":
         ),  # A:B reward probabilities for corresponding to each block
         "log_expdata": False,  # flag to save the training data
         "log_mlp_plasticity": False,  # flag to save the trajectory of the plasticity mlp weights
-        "log_interval": 1,  # log training data every x epochs
+        "log_interval": 25,  # log training data every x epochs
         "use_experimental_data": False,  # use simulated or experimental data
         "expid": 1,  # expid saved for parallel runs on cluster
-        "fit_data": "neural",  # code searches for words: "neural", "behavior", corresponding to fitting on neural activity recordings or binary behavioral choices
+        "fit_data": "behavior",  # code searches for words: "neural", "behavior", corresponding to fitting on neural activity recordings or binary behavioral choices
         "neural_recording_sparsity": 1.0,  # sparsity of 1. means all neurons are recorded
         "measurement_noise_scale": 0.0,  # scale of gaussian noise added to neural recordings would be measurement_noise * firing_rate
         "layer_sizes": "[2, 10, 1]",  # network [input_dim, hidden_dim, output_dim], only 2, 3 layer network supported, since we're modeling plasticity in a single layer
         "input_firing_mean": 0.75,  # stimulus is encoded as firing neurons. mean value of firing input neuron
         "input_variance": 0.05,  # variance of input encoding of stimulus
-        "l1_regularization": 2e-2,  # L1 regularizer on the taylor series params to enforce sparse solutions
+        "l1_regularization": 1e-2,  # L1 regularizer on the taylor series params to enforce sparse solutions
         "generation_coeff_init": "X1Y0R1W0",  # simulated data underlying rule, integers are the corresponding powers, so X1R1W0 would be XR.
         "generation_model": "volterra",  # "volterra" (this just means taylor, it's called volterra in the code, to be consistent with prior literature) or "mlp"
         "plasticity_coeff_init": "random",  # initializations for the parameters of the plasticity rule, "random" or "zeros"
@@ -55,5 +56,8 @@ if __name__ == "__main__":
     config = OmegaConf.from_cli()
     cfg = OmegaConf.merge(cfg, config)
      
-    trainer.train(cfg)
-    # evaluate.simulate_model(cfg)
+    if "train" in cfg.exp_type:
+        trainer.train(cfg)
+    if "eval" in cfg.exp_type:
+        evaluate.simulate_model(cfg)
+
