@@ -68,45 +68,49 @@ def evaluate_model(
     - expected_rewards_eval (dict): Expected rewards for evaluation.
 
     Returns:
-    - percent_deviance (float): Percent deviance explained.
+    - percent_deviance (float): Median percent deviance explained across all experiments.
     """
 
-    exp_i = next(iter(decisions_eval))
-    key, subkey = jax.random.split(key)
-    params = initialize_params(subkey, cfg)
-    trial_lengths = data_loader.get_trial_lengths(decisions_eval[exp_i])
+    percent_deviances = []
 
-    _, model_activations = simulate(
-        params,
-        plasticity_coeff,
-        plasticity_func,
-        xs_eval[exp_i],
-        rewards_eval[exp_i],
-        expected_rewards_eval[exp_i],
-        trial_lengths,
-    )
+    for exp_i in decisions_eval:
+        key, subkey = jax.random.split(key)
+        params = initialize_params(subkey, cfg)
+        trial_lengths = data_loader.get_trial_lengths(decisions_eval[exp_i])
 
-    # Simulate null model with zero plasticity coefficients
-    zero_plasticity_coeff, zero_plasticity_func = synapse.init_plasticity_volterra(
-        None, init="zeros"
-    )
-    _, null_model_activations = simulate(
-        params,
-        zero_plasticity_coeff,
-        zero_plasticity_func,
-        xs_eval[exp_i],
-        rewards_eval[exp_i],
-        expected_rewards_eval[exp_i],
-        trial_lengths,
-    )
+        _, model_activations = simulate(
+            params,
+            plasticity_coeff,
+            plasticity_func,
+            xs_eval[exp_i],
+            rewards_eval[exp_i],
+            expected_rewards_eval[exp_i],
+            trial_lengths,
+        )
 
-    percent_deviance = evaluate_percent_deviance(
-        decisions_eval[exp_i], model_activations, null_model_activations
-    )
+        # Simulate null model with zero plasticity coefficients
+        zero_plasticity_coeff, zero_plasticity_func = synapse.init_plasticity_volterra(
+            None, init="zeros"
+        )
+        _, null_model_activations = simulate(
+            params,
+            zero_plasticity_coeff,
+            zero_plasticity_func,
+            xs_eval[exp_i],
+            rewards_eval[exp_i],
+            expected_rewards_eval[exp_i],
+            trial_lengths,
+        )
 
-    logging.info(f"Percent deviance explained: {percent_deviance}")
+        percent_deviance = evaluate_percent_deviance(
+            decisions_eval[exp_i], model_activations, null_model_activations
+        )
+        percent_deviances.append(percent_deviance)
 
-    return percent_deviance
+    median_percent_deviance = np.median(percent_deviances)
+    logging.info(f"Median percent deviance explained: {median_percent_deviance}")
+
+    return median_percent_deviance
 
 
 def train_model(cfg: Dict) -> Tuple[np.ndarray, Dict, float, Tuple]:
